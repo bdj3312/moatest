@@ -18,9 +18,11 @@ const readPort = async () => {
     }
 };
 
+
 app.post('/sendMessage', async (req, res) => {
     try {
         const port = await readPort();
+        console.log(port)
         const SERVER_HOST = 'localhost';
         const 친구닉네임 = req.body.params[0]; // 친구 닉네임 배열
         const 카톡메세지내용 = req.body.params[2]; // 카톡 메시지 내용
@@ -36,6 +38,7 @@ app.post('/sendMessage', async (req, res) => {
                 client.write(messageJson);
                 console.log(`Sent to ${친구이름}: ${messageJson}`);
                 client.end(); // 메시지 전송 후 소켓 연결 종료
+                res.send(messageJson);
             });
 
             client.on('error', (err) => {
@@ -44,13 +47,13 @@ app.post('/sendMessage', async (req, res) => {
             });
         });
 
-        res.send(messageJson);
+        
     } catch (err) {
         console.error('포트 번호를 읽는 동안 오류 발생:', err);
         res.status(500).send('Error occurred while reading port');
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+app.listen(4848, () => {
+    console.log('Server running on port ');
 });
