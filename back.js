@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.options('*', cors());
 
 // 포트 번호 읽기
 const readPort = async () => {
